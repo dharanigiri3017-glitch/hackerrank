@@ -1,0 +1,28 @@
+def old_hash(t):
+    mult = 1000003
+    x = 0x345678
+    z = len(t)
+
+    for item in t:
+        x = (x ^ item) * mult
+        z -= 1
+        mult += 82520 + 2 * z
+
+    x += 97531
+
+    if x == -1:
+        x = -2
+
+    # Convert to signed 64-bit integer
+    x &= (1 << 64) - 1
+    if x >= (1 << 63):
+        x -= (1 << 64)
+
+    return x
+
+
+if __name__ == '__main__':
+    n = int(input())
+    t = tuple(map(int, input().split()))
+
+    print(old_hash(t))
